@@ -4,7 +4,7 @@ public class Clan {
 	public String type;	//inviteOnly
 	public String description;	//All are welcome! be friendly and helpful ⚠️keep even donations ⚠️team first mindset...
 	public Location location;
-	public boolean isFamilyFriendly;
+	public Boolean isFamilyFriendly;
 	public BadgeUrls badgeUrls;
 	public Integer clanLevel;	//10
 	public Integer clanPoints;	//36154
@@ -17,10 +17,10 @@ public class Clan {
 	public Integer warWins;	//52
 	public Integer warTies;	//0
 	public Integer warLosses;	//42
-	public boolean isWarLogPublic;
+	public Boolean isWarLogPublic;
 	public WarLeague warLeague;
 	public Integer members;	//45
-	public List<Member> memberList;
+	public List<ClanMember> memberList;
 	public List<Label> labels;
 	public Integer requiredVersusTrophies;	//200
 	public Integer requiredTownhallLevel;	//10
@@ -29,7 +29,7 @@ public class Clan {
 	public class Location {
 		public Integer id;	//32000006
 		public String name;	//International
-		public boolean isCountry;
+		public Boolean isCountry;
 	}
 	public class BadgeUrls {
 		public String small;	//https://api-assets.clashofclans.com/badges/70/uHOr7CGhVekq-p8bnVSfD9B-L_RX1_xeSALR38O_PA0.png
@@ -44,7 +44,7 @@ public class Clan {
 		public Integer id;	//48000012
 		public String name;	//Crystal League I
 	}
-	public class Member {
+	public class ClanMember {
 		public String tag;	//#YG090UPVJ
 		public String name;	//munna
 		public String role;	//coLeader
@@ -68,9 +68,9 @@ public class Clan {
 		public String medium;	//https://api-assets.clashofclans.com/labels/128/lXaIuoTlfoNOY5fKcQGeT57apz1KFWkN9-raxqIlMbE.png
 	}
 	public class PlayerHouse {
-		public List<Element> elements;
+		public List<PlayerHouseElement> elements;
 	}
-	public class Element {
+	public class PlayerHouseElement {
 		public String type;	//ground
 		public Integer id;	//82000001
 	}
