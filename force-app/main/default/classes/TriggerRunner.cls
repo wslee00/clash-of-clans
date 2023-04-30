@@ -1,5 +1,5 @@
 public with sharing class TriggerRunner {
-    private static void execute(TriggerHandler handler) {
+    public static void execute(TriggerHandler handler) {
 		if (Trigger.isBefore) {
 			handler.bulkBefore();
 			if (Trigger.isDelete) {
