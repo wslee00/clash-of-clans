@@ -1,2 +1,2 @@
-public with sharing class MemberDonationResetHandler implements PlatformEventHandler {
+public with sharing class MemberDonationResetHandler extends PlatformEventHandler {
 }
