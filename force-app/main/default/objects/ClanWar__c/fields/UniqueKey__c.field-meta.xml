@@ -3,7 +3,7 @@
     <fullName>UniqueKey__c</fullName>
     <caseSensitive>false</caseSensitive>
     <description>clan tag + opponent tag + starttime</description>
-    <externalId>false</externalId>
+    <externalId>true</externalId>
     <label>Unique Key</label>
     <length>40</length>
     <required>true</required>
