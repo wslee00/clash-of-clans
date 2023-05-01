@@ -20,17 +20,26 @@ public class ClanWar {
 		return ClashOfClansApiUtils.parseDttm(this.endTime);
 	}
 
-    public class WarClan extends Clan {
+    public class WarClan {
+		public String tag;
+		public String name;
+		public List<Clan.BadgeUrls> badgeUrls;
+		public Integer clanLevel;
 		public Integer attacks;	//12
 		public Integer stars;	//20
+		public Integer expEarned;
 		public Double destructionPercentage;	//71.7
 		public List<ClanWarMember> members;
     }
 
-    public class ClanWarMember extends ClanMember {
+    public class ClanWarMember {
+		public String tag;
+		public String name;
 		public Integer mapPosition;	//1
-		public List<ClanWarAttack> attacks;
+		public Integer townhallLevel;
 		public Integer opponentAttacks;	//0
+		public ClanWarAttack bestOpponentAttack;
+		public List<ClanWarAttack> attacks;
 	}
 
 	public class ClanWarAttack {

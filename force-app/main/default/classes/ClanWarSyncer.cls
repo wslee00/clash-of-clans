@@ -77,6 +77,7 @@ public with sharing class ClanWarSyncer {
     private static ClanWarMember__c generateClanWarMember(WarClan__c warClan, ClanWar.ClanWarMember clanWarMember) {
         ClanWarMember__c clanWarMemberSObj = new ClanWarMember__c(
             UniqueKey__c = warClan.Id + clanWarMember.tag,
+            Tag__c = clanWarMember.tag,
             WarClan__c = warClan.Id,
             OpponentAttacks__c = clanWarMember.opponentAttacks,
             MapPosition__c = clanWarMember.mapPosition
