@@ -8,6 +8,10 @@ public class ClanWar {
 	public WarClan clan;
 	public WarClan opponent;
 
+	public Datetime getPreparationStartTime() {
+		return ClashOfClansApiUtils.parseDttm(this.preparationStartTime);
+	}
+
 	public Datetime getStartTime() {
 		return ClashOfClansApiUtils.parseDttm(this.startTime);
 	}
@@ -16,20 +20,20 @@ public class ClanWar {
 		return ClashOfClansApiUtils.parseDttm(this.endTime);
 	}
 
-    class WarClan extends Clan {
+    public class WarClan extends Clan {
 		public Integer attacks;	//12
 		public Integer stars;	//20
 		public Double destructionPercentage;	//71.7
 		public List<ClanWarMember> members;
     }
 
-    class ClanWarMember extends ClanMember {
+    public class ClanWarMember extends ClanMember {
 		public Integer mapPosition;	//1
 		public List<ClanWarAttack> attacks;
 		public Integer opponentAttacks;	//0
 	}
 
-	class ClanWarAttack {
+	public class ClanWarAttack {
 		public String attackerTag;	//#LP98JGP82
 		public String defenderTag;	//#L8RYYYQ8Y
 		public Integer stars;	//2

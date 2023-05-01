@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>UniqueKey__c</fullName>
     <caseSensitive>false</caseSensitive>
-    <description>clan tag + opponent tag + starttime</description>
+    <description>clan tag + opponent tag + preparation starttime</description>
     <externalId>true</externalId>
     <label>Unique Key</label>
     <length>40</length>
