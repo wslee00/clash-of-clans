@@ -32,9 +32,9 @@ public with sharing class ClanSyncer {
         return clanSObject;
     }
 
-    private static List<ClanMember__c> generateClanMembers(Clan__c clanSObject, List<Clan.ClanMember> clanMembers) {
+    private static List<ClanMember__c> generateClanMembers(Clan__c clanSObject, List<ClanMember> clanMembers) {
         List<ClanMember__c> clanMemberSObjs = new List<ClanMember__c>();
-        for (Clan.ClanMember clanMember : clanMembers) {
+        for (ClanMember clanMember : clanMembers) {
             ClanMember__c clanMemberSObj = new ClanMember__c();
             clanMemberSObj.Clan__c = clanSObject.Id;
             clanMemberSObj.Tag__c = clanMember.tag;
