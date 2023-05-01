@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ClanWarLeagueGroup__c</fullName>
+    <externalId>false</externalId>
+    <label>Clan War League Group</label>
+    <referenceTo>ClanWarLeagueGroup__c</referenceTo>
+    <relationshipLabel>Clan War League Clans</relationshipLabel>
+    <relationshipName>ClanWarLeagueClans</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>
