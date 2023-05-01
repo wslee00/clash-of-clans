@@ -153,12 +153,12 @@
     <enableSharing>false</enableSharing>
     <enableStreamingApi>false</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Clan War Member</label>
+    <label>War Clan</label>
     <nameField>
-        <label>Clan War Member Name</label>
+        <label>War Clan Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Clan War Members</pluralLabel>
+    <pluralLabel>War Clans</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
