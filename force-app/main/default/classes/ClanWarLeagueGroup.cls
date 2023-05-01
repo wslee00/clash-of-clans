@@ -10,7 +10,7 @@ public class ClanWarLeagueGroup {
         Integer clanLevel;
         String name;
         List<ClanWarLeagueClanMember> members;
-        List<Clan.BadgeUrls> badgeUrls;
+        Clan.BadgeUrls badgeUrls;
     }
 
     public class ClanWarLeagueClanMember {
@@ -21,5 +21,9 @@ public class ClanWarLeagueGroup {
 
     public class ClanWarLeagueRound {
         List<String> warTags;
+    }
+
+    public static ClanWarLeagueGroup parse(String json) {
+        return (ClanWarLeagueGroup) System.JSON.deserialize(json, ClanWarLeagueGroup.class);
     }
 }
