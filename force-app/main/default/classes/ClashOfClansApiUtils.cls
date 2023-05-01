@@ -18,6 +18,6 @@ public class ClashOfClansApiUtils {
 		Integer minute = Integer.valueOf(timePart.substring(2, 4));
 		Integer second = Integer.valueOf(timePart.substring(4, 6));
 
-        return Datetime.newInstance(year, month, day, hour, minute, second);
+        return Datetime.newInstanceGmt(year, month, day, hour, minute, second);
     }
 }
