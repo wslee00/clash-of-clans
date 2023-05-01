@@ -16,11 +16,7 @@ public class ClanWar {
 		return ClashOfClansApiUtils.parseDttm(this.endTime);
 	}
 
-    class WarClan {
-        public String tag;	//#2LVJ29Y00
-		public String name;	//The Zap Factory
-		public Clan.BadgeUrls badgeUrls;
-		public Integer clanLevel;	//12
+    class WarClan extends Clan {
 		public Integer attacks;	//12
 		public Integer stars;	//20
 		public Double destructionPercentage;	//71.7
