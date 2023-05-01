@@ -1,4 +1,4 @@
-public virtual class ClanMember {
+public class ClanMember {
     public String tag;	//#YG090UPVJ
     public String name;	//munna
     public String role;	//coLeader

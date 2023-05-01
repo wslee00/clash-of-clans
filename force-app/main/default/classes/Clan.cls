@@ -1,4 +1,4 @@
-public virtual class Clan {
+public class Clan {
 	public String tag;	//#2LVJ29Y00
 	public String name;	//The Zap Factory
 	public String type;	//inviteOnly
