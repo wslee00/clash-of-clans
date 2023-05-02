@@ -64,7 +64,7 @@ public with sharing class ClanWarSyncer {
         WarClan__c warClanSObject = new WarClan__c(
             ClanWar__c = clanWarSObject.Id,
             Name = warClan.name,
-            ClanTag__c = warClan.tag,
+            Tag__c = warClan.tag,
             DestructionPercentage__c = warClan.destructionPercentage,
             Stars__c = warClan.stars,
             Attacks__c = warClan.attacks,
