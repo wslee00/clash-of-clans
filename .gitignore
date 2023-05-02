@@ -41,3 +41,6 @@ $RECYCLE.BIN/
 
 # Personal scripts
 scripts/zz-personal
+
+# MACOSX
+*__MACOSX*
