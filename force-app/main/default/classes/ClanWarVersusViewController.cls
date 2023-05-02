@@ -1,7 +1,19 @@
 public with sharing class ClanWarVersusViewController {
     @AuraEnabled(cacheable=true)
     public static ClanWarDetails getWarDetails(Id clanWarId) {
-        List<WarClan__c> warClans = [SELECT Name, (SELECT Name FROM ClanWarMembers__r) FROM WarClan__c WHERE ClanWar__c = :clanWarId WITH SECURITY_ENFORCED];
+        List<WarClan__c> warClans = [
+            SELECT Name, 
+                (
+                    SELECT Name, 
+                        Tag__c, 
+                        OpponentAttacks__c, 
+                        TownHallLevel__c 
+                    FROM ClanWarMembers__r 
+                    ORDER BY MapPosition__c
+                ) 
+            FROM WarClan__c 
+            WHERE ClanWar__c = :clanWarId WITH SECURITY_ENFORCED
+        ];
         if (warClans.size() != 2) {
             throw new ClashOfClansException('Did not find 2 war clans: ' + warClans.size());
         }
