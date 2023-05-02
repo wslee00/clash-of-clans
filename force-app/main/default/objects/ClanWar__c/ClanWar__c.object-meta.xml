@@ -155,9 +155,8 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Clan War</label>
     <nameField>
-        <displayFormat>WAR-{0000}</displayFormat>
-        <label>Clan War Number</label>
-        <type>AutoNumber</type>
+        <label>Clan War Name</label>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Clan Wars</pluralLabel>
     <searchLayouts></searchLayouts>
