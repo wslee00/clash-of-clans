@@ -23,7 +23,7 @@ public class ClanWar {
     public class WarClan {
 		public String tag;
 		public String name;
-		public List<Clan.BadgeUrls> badgeUrls;
+		public Clan.BadgeUrls badgeUrls;
 		public Integer clanLevel;
 		public Integer attacks;	//12
 		public Integer stars;	//20

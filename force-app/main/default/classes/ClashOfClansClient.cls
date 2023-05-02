@@ -9,6 +9,16 @@ public class ClashOfClansClient {
         return ClanWarLeagueGroup.parse(res.getBody());
     }
 
+    public ClanWar getClanWarLeagueWar(String warTag) {
+        HttpRequest req = new HttpRequest();
+        req.setHeader('Authorization', 'Bearer {!$Credential.Password}');
+        req.setEndpoint('callout:Clash_of_Clans/v1/clanwarleagues/wars/' + EncodingUtil.urlEncode(warTag, 'UTF-8'));
+        req.setMethod('GET');
+        Http http = new Http();
+        HttpResponse res = http.send(req); 
+        return ClanWar.parse(res.getBody());
+    }
+
     public Clan getClan(String clanTag) {
         HttpRequest req = new HttpRequest();
         req.setHeader('Authorization', 'Bearer {!$Credential.Password}');
