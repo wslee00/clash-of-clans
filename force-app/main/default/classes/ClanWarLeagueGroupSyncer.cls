@@ -1,4 +1,5 @@
 public with sharing class ClanWarLeagueGroupSyncer {
+    @AuraEnabled
     public static void syncCurrentWar(String clanTag) {
         ClashOfClansClient client = new ClashOfClansClient();
         ClanWarLeagueGroup leagueGroup = client.getCurrentWarLeagueGroup(clanTag);

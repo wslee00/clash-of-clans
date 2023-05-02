@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="CWL Group Actions">
+        <template if:true={cwlGroup}>
+            <div class="slds-var-p-around_small slds-is-relative">
+                <template if:true={isProcessing}>
+                    <lightning-spinner size="small" alternative-text="Processing..."></lightning-spinner>
+                </template>
+                <lightning-button label="Sync" onclick={syncCwlGroup}></lightning-button>
+            </div>
+        </template>
+    </lightning-card>
+</template>
