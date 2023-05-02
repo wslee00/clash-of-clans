@@ -13,6 +13,9 @@ public with sharing class ClanWarLeagueGroupSyncer {
 
         List<ClanWarLeagueRound__c> roundsToUpsert = generateRounds(leagueGroupToUpsert, leagueGroup.rounds);
         upsert roundsToUpsert WarTags__c;
+
+        List<ClanWarLeagueRoundWar__c> roundWarsToUpsert = generateRoundWars(roundsToUpsert);
+        upsert roundWarsToUpsert WarTag__c;
     }
 
     private static ClanWarLeagueGroup__c generateLeagueGroupSObj(
@@ -95,5 +98,19 @@ public with sharing class ClanWarLeagueGroupSyncer {
         }
 
         return roundSObjects;
+    }
+
+    private static List<ClanWarLeagueRoundWar__c> generateRoundWars(List<ClanWarLeagueRound__c> rounds) {
+        List<ClanWarLeagueRoundWar__c> roundWars = new List<ClanWarLeagueRoundWar__c>();
+        for (ClanWarLeagueRound__c round : rounds) {
+            List<String> warTags = round.WarTags__c.split(';');
+            for (String warTag : warTags) {
+                roundWars.add(new ClanWarLeagueRoundWar__c(
+                    ClanWarLeagueRound__c = round.Id,
+                    WarTag__c = warTag
+                ));
+            }
+        }
+        return roundWars;
     }
 }
