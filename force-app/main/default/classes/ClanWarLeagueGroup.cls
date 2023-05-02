@@ -6,21 +6,21 @@ public class ClanWarLeagueGroup {
     public List<ClanWarLeagueRound> rounds;
 
     public class ClanWarLeagueClan {
-        String tag;
-        Integer clanLevel;
-        String name;
-        List<ClanWarLeagueClanMember> members;
-        Clan.BadgeUrls badgeUrls;
+        public String tag;
+        public Integer clanLevel;
+        public String name;
+        public List<ClanWarLeagueClanMember> members;
+        public Clan.BadgeUrls badgeUrls;
     }
 
     public class ClanWarLeagueClanMember {
-        String tag;
-        Integer townHallLevel;
-        String name;
+        public String tag;
+        public Integer townHallLevel;
+        public String name;
     }
 
     public class ClanWarLeagueRound {
-        List<String> warTags;
+        public List<String> warTags;
     }
 
     public static ClanWarLeagueGroup parse(String json) {
