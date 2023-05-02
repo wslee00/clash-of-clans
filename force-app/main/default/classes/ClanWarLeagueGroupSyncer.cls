@@ -20,6 +20,7 @@ public with sharing class ClanWarLeagueGroupSyncer {
         String initiatingClanTag
     ) {
         return new ClanWarLeagueGroup__c(
+            Name = warLeagueGroup.season + ' ' + initiatingClanTag,
             Tag__c = warLeagueGroup.tag,
             State__c = warLeagueGroup.state,
             Season__c = warLeagueGroup.season,
