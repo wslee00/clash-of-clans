@@ -2,35 +2,37 @@ public with sharing class ClanWarSyncer {
     public static void syncCurrentWar(String clanTag) {
         ClashOfClansClient client = new ClashOfClansClient();
         ClanWar currentWar = client.getClanCurrentWar(clanTag);
+        upsertClanWarSObjects(currentWar, null);
+    }
 
-        List<Clan__c> opponentClans = [SELECT Id FROM Clan__c WHERE Tag__c = :currentWar.opponent.tag];
-        if (opponentClans.size() > 1) {
-            throw new ClashOfClansException('More than one clan with tag ' + currentWar.opponent.tag);
-        }
-        if (opponentClans.isEmpty()) {
-            ClanSyncer.syncClan(currentWar.opponent.tag);
-        }
+    public static void syncClanWarLeagueWar(String warTag) {
+        ClashOfClansClient client = new ClashOfClansClient();
+        ClanWar cwlWar = client.getClanWarLeagueWar(warTag);
+        upsertClanWarSObjects(cwlWar, warTag);
+    }
 
-        ClanWar__c currentWarSObject = generateClanWarSObject(currentWar);
-        upsert currentWarSObject UniqueKey__c;
+    private static void upsertClanWarSObjects(ClanWar clanWar, String warTag) {
+        ClanWar__c clanWarSObject = generateClanWarSObject(clanWar);
+        clanWarSObject.WarTag__c = warTag;
+        upsert clanWarSObject UniqueKey__c;
 
-        WarClan__c clanWarClan = generateWarClan(currentWarSObject, currentWar.clan);
-        WarClan__c opponentWarClan = generateWarClan(currentWarSObject, currentWar.opponent);
+        WarClan__c clanWarClan = generateWarClan(clanWarSObject, clanWar.clan);
+        WarClan__c opponentWarClan = generateWarClan(clanWarSObject, clanWar.opponent);
         upsert new List<WarClan__c>{ clanWarClan, opponentWarClan } UniqueKey__c;
 
-        List<ClanWarMember__c> cwMembersToUpsert = new List<ClanWarMember__c>();
-        for (ClanWar.ClanWarMember member : currentWar.clan.members) {
-            cwMembersToUpsert.add(generateClanWarMember(clanWarClan, member));
+        List<ClanWarMember__c> membersToUpsert = new List<ClanWarMember__c>();
+        for (ClanWar.ClanWarMember member : clanWar.clan.members) {
+            membersToUpsert.add(generateClanWarMember(clanWarClan, member));
         }
-        for (ClanWar.ClanWarMember member : currentWar.opponent.members) {
-            cwMembersToUpsert.add(generateClanWarMember(opponentWarClan, member));
+        for (ClanWar.ClanWarMember member : clanWar.opponent.members) {
+            membersToUpsert.add(generateClanWarMember(opponentWarClan, member));
         }
-        upsert cwMembersToUpsert UniqueKey__c;
+        upsert membersToUpsert UniqueKey__c;
 
         List<ClanWarMember__c> queriedWarMembers = [
             SELECT ClanMember__r.Tag__c 
             FROM ClanWarMember__c 
-            WHERE WarClan__r.ClanWar__c = :currentWarSObject.Id
+            WHERE WarClan__r.ClanWar__c = :clanWarSObject.Id
         ];
         Map<String, ClanWarMember__c> clanWarMemberMap = new Map<String, ClanWarMember__c>();
         for (ClanWarMember__c warMember : queriedWarMembers) {
@@ -38,8 +40,13 @@ public with sharing class ClanWarSyncer {
         }
 
         List<ClanWarAttack__c> cwAttacksToUpsert = new List<ClanWarAttack__c>();
-        for (ClanWar.ClanWarMember member : currentWar.clan.members) {
+        for (ClanWar.ClanWarMember member : clanWar.clan.members) {
             ClanWarMember__c clanWarMember = clanWarMemberMap.get(member.tag);
+
+            if (member.attacks == null) {
+                continue;
+            }
+
             for (ClanWar.ClanWarAttack attack : member.attacks) {
                 cwAttacksToUpsert.add(generateClanWarAttack(clanWarMember, attack));
             }
@@ -47,22 +54,25 @@ public with sharing class ClanWarSyncer {
         upsert cwAttacksToUpsert UniqueKey__c;
     }
 
-    private static ClanWar__c generateClanWarSObject(ClanWar currentWar) {
-        ClanWar__c currentWarSObject = new ClanWar__c(
-            State__c = currentWar.state,
-            TeamSize__c = currentWar.teamSize,
-            AttacksPerMember__c = currentWar.attacksPerMember,
-            PreparationStartTime__c = currentWar.getPreparationStartTime(),
-            StartTime__c = currentWar.getStartTime(),
-            EndTime__c = currentWar.getEndTime(),
-            UniqueKey__c = currentWar.clan.tag + currentWar.opponent.tag + currentWar.preparationStartTime
+    private static ClanWar__c generateClanWarSObject(ClanWar clanWar) {
+        ClanWar__c clanWarSObject = new ClanWar__c(
+            Name = clanWar.clan.name + ' vs. ' + clanWar.opponent.name,
+            State__c = clanWar.state,
+            TeamSize__c = clanWar.teamSize,
+            AttacksPerMember__c = clanWar.attacksPerMember,
+            PreparationStartTime__c = clanWar.getPreparationStartTime(),
+            StartTime__c = clanWar.getStartTime(),
+            EndTime__c = clanWar.getEndTime(),
+            WarStartTime__c = String.isBlank(clanWar.warStartTime) ? null : clanWar.getWarStartTime(),
+            UniqueKey__c = clanWar.clan.tag + clanWar.opponent.tag + clanWar.preparationStartTime
         );
-        return currentWarSObject;
+        return clanWarSObject;
     }
 
     private static WarClan__c generateWarClan(ClanWar__c clanWarSObject, ClanWar.WarClan warClan) {
         WarClan__c warClanSObject = new WarClan__c(
             ClanWar__c = clanWarSObject.Id,
+            ClanLevel__c = warClan.clanLevel,
             Name = warClan.name,
             Tag__c = warClan.tag,
             DestructionPercentage__c = warClan.destructionPercentage,
@@ -76,11 +86,13 @@ public with sharing class ClanWarSyncer {
 
     private static ClanWarMember__c generateClanWarMember(WarClan__c warClan, ClanWar.ClanWarMember clanWarMember) {
         ClanWarMember__c clanWarMemberSObj = new ClanWarMember__c(
+            Name = clanWarMember.name,
             UniqueKey__c = warClan.Id + clanWarMember.tag,
             Tag__c = clanWarMember.tag,
             WarClan__c = warClan.Id,
             OpponentAttacks__c = clanWarMember.opponentAttacks,
-            MapPosition__c = clanWarMember.mapPosition
+            MapPosition__c = clanWarMember.mapPosition,
+            TownHallLevel__c = clanWarMember.townhallLevel
         );
         return clanWarMemberSObj;
     }

@@ -7,6 +7,7 @@ public class ClanWar {
 	public String endTime;	//20230501T004317.000Z
 	public WarClan clan;
 	public WarClan opponent;
+	public String warStartTime;
 
 	public Datetime getPreparationStartTime() {
 		return ClashOfClansApiUtils.parseDttm(this.preparationStartTime);
@@ -18,6 +19,10 @@ public class ClanWar {
 
 	public Datetime getEndTime() {
 		return ClashOfClansApiUtils.parseDttm(this.endTime);
+	}
+
+	public Datetime getWarStartTime() {
+		return ClashOfClansApiUtils.parseDttm(this.warStartTime);
 	}
 
     public class WarClan {
