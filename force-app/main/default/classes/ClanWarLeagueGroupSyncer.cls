@@ -17,6 +17,8 @@ public with sharing class ClanWarLeagueGroupSyncer {
 
         List<ClanWarLeagueRoundWar__c> roundWarsToUpsert = generateRoundWars(roundsToUpsert);
         upsert roundWarsToUpsert WarTag__c;
+
+        Database.executeBatch(new ClanWarSyncerBatch(), 1);
     }
 
     private static ClanWarLeagueGroup__c generateLeagueGroupSObj(

@@ -31,17 +31,19 @@ public with sharing class ClanWarSyncer {
         upsert membersToUpsert UniqueKey__c;
 
         List<ClanWarMember__c> queriedWarMembers = [
-            SELECT ClanMember__r.Tag__c 
+            SELECT Tag__c 
             FROM ClanWarMember__c 
             WHERE WarClan__r.ClanWar__c = :clanWarSObject.Id
         ];
         Map<String, ClanWarMember__c> clanWarMemberMap = new Map<String, ClanWarMember__c>();
         for (ClanWarMember__c warMember : queriedWarMembers) {
-            clanWarMemberMap.put(warMember.ClanMember__r.Tag__c, warMember);
+            clanWarMemberMap.put(warMember.Tag__c, warMember);
         }
 
         List<ClanWarAttack__c> cwAttacksToUpsert = new List<ClanWarAttack__c>();
+        System.debug('clanwarmembermap: ' + clanWarMemberMap);
         for (ClanWar.ClanWarMember member : clanWar.clan.members) {
+            System.debug('member.tag: ' + member.tag);
             ClanWarMember__c clanWarMember = clanWarMemberMap.get(member.tag);
 
             if (member.attacks == null) {
@@ -49,6 +51,7 @@ public with sharing class ClanWarSyncer {
             }
 
             for (ClanWar.ClanWarAttack attack : member.attacks) {
+                System.debug('clanwarmember: ' + clanWarMember);
                 cwAttacksToUpsert.add(generateClanWarAttack(clanWarMember, attack));
             }
         }
