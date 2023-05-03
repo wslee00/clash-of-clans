@@ -1,11 +1,25 @@
 <template>
     <div class="slds-grid slds-wrap">
-        <div class="slds-col slds-size_1-of-1">
-            <img src={townHallUrl} class="town-hall-image"> {clanWarMember.Name}
-        </div>
-        <div class="slds-col slds-size_1-of-1">
-            Opponent Attacks: {clanWarMember.OpponentAttacks__c}
-        </div>
-
+        <template if:true={attacks}>
+            <div class="slds-col slds-size_1-of-1">
+                <img src={townHallUrl} class="town-hall-image"> {clanWarMember.Name}
+            </div>
+            <div class="slds-col slds-size_1-of-1">
+                <div class="slds-grid">
+                    <div class="slds-col slds-grow-none slds-var-m-right_small">
+                        # of Attacks<br>
+                        {numAttacks}
+                    </div>
+                    <div class="slds-col slds-grow-none">
+                        Stars<br>
+                        {stars}
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1">
+                # of Defenses: <br>
+                {clanWarMember.OpponentAttacks__c}
+            </div>
+        </template>
     </div>
 </template>
