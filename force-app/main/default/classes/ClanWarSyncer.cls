@@ -41,9 +41,10 @@ public with sharing class ClanWarSyncer {
         }
 
         List<ClanWarAttack__c> cwAttacksToUpsert = new List<ClanWarAttack__c>();
-        System.debug('clanwarmembermap: ' + clanWarMemberMap);
-        for (ClanWar.ClanWarMember member : clanWar.clan.members) {
-            System.debug('member.tag: ' + member.tag);
+        List<ClanWar.ClanWarMember> allClanWarMembers = new List<ClanWar.ClanWarMember>();
+        allClanWarMembers.addAll(clanWar.clan.members);
+        allClanWarMembers.addAll(clanWar.opponent.members);
+        for (ClanWar.ClanWarMember member : allClanWarMembers) {
             ClanWarMember__c clanWarMember = clanWarMemberMap.get(member.tag);
 
             if (member.attacks == null) {
@@ -51,7 +52,6 @@ public with sharing class ClanWarSyncer {
             }
 
             for (ClanWar.ClanWarAttack attack : member.attacks) {
-                System.debug('clanwarmember: ' + clanWarMember);
                 cwAttacksToUpsert.add(generateClanWarAttack(clanWarMember, attack));
             }
         }
