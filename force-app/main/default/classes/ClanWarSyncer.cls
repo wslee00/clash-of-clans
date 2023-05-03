@@ -5,6 +5,7 @@ public with sharing class ClanWarSyncer {
         upsertClanWarSObjects(currentWar, null);
     }
 
+    @AuraEnabled
     public static void syncClanWarLeagueWar(String warTag) {
         ClashOfClansClient client = new ClashOfClansClient();
         ClanWar cwlWar = client.getClanWarLeagueWar(warTag);
@@ -108,7 +109,8 @@ public with sharing class ClanWarSyncer {
             Stars__c = clanWarAttack.stars,
             DefenderTag__c = clanWarAttack.defenderTag,
             AttackerTag__c = clanWarAttack.attackerTag,
-            ClanWarMember__c = clanWarMember.Id
+            ClanWarMember__c = clanWarMember.Id,
+            UniqueKey__c = clanWarMember.Id + clanWarAttack.attackerTag + clanWarAttack.defenderTag
         );
 
         return clanWarAttackSObj;
