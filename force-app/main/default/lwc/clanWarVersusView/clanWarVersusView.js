@@ -10,6 +10,7 @@ export default class ClanWarVersusView extends LightningElement {
 
     clanWar;
     warDetails;
+    isProcessing = false;
 
     @wire(getRecord, { recordId: '$recordId', fields: [CLAN_WAR_NAME_FIELD, WAR_TAG_FIELD]})
     processGetRecord({ data, error }) {

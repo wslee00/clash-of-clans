@@ -1,3 +1,11 @@
 <template>
-    <img src={townHallUrl} class="town-hall-image"> {clanWarMember.Name}
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1">
+            <img src={townHallUrl} class="town-hall-image"> {clanWarMember.Name}
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            Opponent Attacks: {clanWarMember.OpponentAttacks__c}
+        </div>
+
+    </div>
 </template>

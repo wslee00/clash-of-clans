@@ -3,21 +3,24 @@
         <span class="slds-text-heading_large">
             {clanWarName}
         </span>
-        <span class="slds-var-m-left_medium refresh-icon-container">
+        <span class="slds-var-m-left_medium refresh-icon-container slds-is-relative">
+            <template if:true={isProcessing}>
+                <lightning-spinner alternative-text="Processing..." size="small"></lightning-spinner>
+            </template>
             <lightning-button-icon icon-name="utility:refresh" onclick={refreshWarDetails}></lightning-button-icon>
         </span>
 
     </div>
-    <div class="slds-grid slds-var-p-around_small">
+    <div class="slds-grid slds-grid_align-center slds-var-p-around_small">
         <template if:true={warDetails}>
-            <div class="slds-col slds-text-align_center">
+            <div class="slds-col">
                 <template for:each={warDetails.clan.ClanWarMembers__r} for:item="member">
                     <div key={member.Tag__c}>
                         <c-clan-war-member clan-war-member={member}></c-clan-war-member>
                     </div>
                 </template>
             </div>
-            <div class="slds-col slds-text-align_center">
+            <div class="slds-col">
                 <template for:each={warDetails.opponent.ClanWarMembers__r} for:item="member">
                     <div key={member.Tag__c}>
                         <c-clan-war-member clan-war-member={member}></c-clan-war-member>

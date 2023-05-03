@@ -7,7 +7,7 @@ public with sharing class ClanWarVersusViewController {
                     SELECT Name, 
                         Tag__c, 
                         OpponentAttacks__c, 
-                        TownHallLevel__c 
+                        TownHallLevel__c
                     FROM ClanWarMembers__r 
                     ORDER BY MapPosition__c
                 ) 
